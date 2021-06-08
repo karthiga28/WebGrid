@@ -1,0 +1,127 @@
+﻿@model Invoice
+<button id="welcome" onclick="callme()">Add New Row</button>
+<table class="table table-bordered table-condensed table-hover" id="lineItemTable" name="assetTable">
+    <thead>
+        <tr>
+            <th class="text-center">Id #</th>
+            <th class="text-center">Invoice Number</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr hidden>
+            <td>
+                <label id="row"></label>
+                <input asp-for="InvoiceNumber" class="form-control" value=@ViewBag.InvoiceNumber />
+            </td>
+            <td>
+                <input asp-for="Id" class="form-control" value=@ViewBag.Id />
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<button id="fullSubmit" onclick="submitme()">Submit</button>
+
+<script type="text/javascript">
+    function callme() {
+        //clones the first row of the table
+        var newRow = $("#lineItemTable tbody tr").first().clone();
+
+        //removes the 'hidden' attribute so it will be visible when added  to the table
+        newRow.removeAttr("hidden");
+
+        //add/append new row to the table
+        $("tbody").append(newRow);
+
+        //get row number which will be appended to the id of each control in this row
+        //for example if this were  the second row then the id of the asset field would be something like asset_2.
+        //note  that since there is already a hidden row in the table, we subtract 1 from the row number
+        var rowNum = "_" + ($("#lineItemTable tbody tr").length - 1);
+
+        //loop through the input controls and add the new id value
+        newRow.find("input").each(function () {
+
+            // get id of the input control
+            var ctrl = $(this).attr("id");
+
+            //concatenate the row number to the id
+            var newId = ctrl + rowNum;
+
+            //assign new id to control
+            $(this).attr("id", newId);
+
+        });
+    }
+
+    function submitme() {
+        var tbl = document.getElementById("lineItemTable");
+
+        //array to hold the json objects
+        var jsonArray = [];
+
+        //iterate through the fields and put values in the json object
+        for (var i = 1, r = tbl.rows.length - 1; i < r; i++) {
+
+            var jsonObj = {
+                InvoiceNumber: $("#InvoiceNumber_" + i).val(),
+                Id: $("#Id_" + i).val()
+                //,
+                //assetDescription1: $("#TransferLineItem_AssetDescription1_" + i).val(),
+                //assetDescription2: $("#TransferLineItem_AssetDescription2_" + i).val(),
+                //InventoryNum: $("#TransferLineItem_InventoryNum_" + i).val(),
+                //serialNumber: $("#TransferLineItem_SerialNumber_" + i).val()
+            };
+
+            //put json object in array
+            jsonArray.push(jsonObj);
+        }
+
+        console.log(jsonArray);
+        console.log(JSON.stringify(jsonArray));
+
+        var massagedRawMaterials = [];
+
+        for (var i = 0; i < 5; i++) {
+            massagedRawMaterials.push({
+                name: 'Raw Material Name',
+                shortCode: 'Short Code',
+                price: 'Price'
+            });
+        }
+
+        //pass json array to controller function to save line items
+        //$.ajax({
+        //    url: "/Home/Create",
+        //    type: "POST",
+        //    data: JSON.stringify({ rawmaterial: massagedRawMaterials }),
+        //    contentType: "application/json",
+        //    dataType: 'json',
+        //    success: function (savingStatus) {
+        //        $("#hdnOrigComments").val($('#txtComments').val());
+        //        $('#lblCommentsNotification').text(savingStatus);
+        //    },
+        //    error: function (xhr, ajaxOptions, thrownError) {
+        //        $('#lblCommentsNotification').text("Error encountered while saving the comments.");
+        //    }
+        $.ajax({
+            url: "/Home/Create",
+            type: "POST",
+            data: { rawmaterial: massagedRawMaterials },
+            success: function (savingStatus) {
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+            }
+            //async: false,
+            //type: "POST",
+            ////dataType: "json",
+            //contentType: "application/json; charset=utf-8'",
+            //data:{ "InvoiceNumber": "12", "Id": "2" },
+            //success: function () {
+            //    showModal("btn-success", "Form Saved", "Your new transfer form was successfully saved.");
+            //},
+            //failure: function () {
+            //    showModal("btn-danger", "Save Failed", "Your form could not be saved, please contact site support");
+            //}
+        });
+    }
+</script>
