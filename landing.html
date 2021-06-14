@@ -1,0 +1,295 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+        integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+    <title>Karthi Grid</title>
+</head>
+
+<body>
+    <br>
+    <br>
+    <form class="form-inline">
+        <div class="container">
+            <div class="form-group mb-2">
+                <div class="form-group">
+                    <label for="exampleFormControlFile1">Source Format</label>
+                    <input type="file" class="form-control-file" id="exampleFormControlFile1">
+                </div>
+              </div>
+              <div class="form-group mb-2">
+                <div class="form-group">
+                <button type="button" class="btn btn-primary" onclick="addnewRow()">Add New Row</button>
+              </div>
+              </div>
+        </div>
+        <br>
+        <div class="container">
+            <table id="genericTable" class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">Id</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Employee</th>
+                        <th scope="col">Experience</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row">
+                            <div class="form-group mb-2">
+                                <input type="text" readonly class="dblclickTrigger form-control-plaintext"
+                                    id="Id" value="1">
+                            </div>
+                        </th>
+                        <td>
+                            <div class="form-group mb-2">
+                                <input type="text" readonly class="dblclickTrigger form-control-plaintext" id="Name"
+                                    value="Karthi">
+                            </div>
+                        </td>
+                        <td>
+                            <div class="form-group mb-2">
+                                <input type="text" readonly class="dblclickTrigger form-control-plaintext"
+                                    id="Employeer" value="TCS">
+                            </div>
+                        </td>
+                        <!-- <td>
+                            <div class="dropdown">
+                                <button class="dblclickButton btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                  Select
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                  <a class="dropdown-item" href="#">Action</a>
+                                  <a class="dropdown-item" href="#">Another action</a>
+                                  <a class="dropdown-item" href="#">Something else here</a>
+                                </div>
+                              </div>
+                        </td> -->
+                        <td>
+                            <div class="form-group mb-2">
+                                <button type="button" class="btn btn-secondary onClickDelete" id="onClickDelete">Delete Row</button>
+                              </div>
+                        </td>
+                    </tr>
+                    <tr id="rowToAdd" hidden>
+                        <th scope="row">
+                            <div class="form-group mb-2">
+                                <input type="text" readonly class="dblclickTrigger form-control-plaintext" id="Id"
+                                    value="">
+                            </div>
+                        </th>
+                        <td>
+                            <div class="form-group mb-2">
+                                <input type="text" readonly class="dblclickTrigger form-control-plaintext" id="Name"
+                                    value="">
+                            </div>
+                        </td>
+                        <td>
+                            <div class="form-group mb-2">
+                                <input type="text" readonly class="dblclickTrigger form-control-plaintext"
+                                    id="Employeer" value="">
+                            </div>
+                        </td>
+                            
+                            <!-- <div class="form-group mb-2">
+                            <div class="dropdown">
+                                <button class="dblclickButton btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Select
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                  <a class="dropdown-item" href="#">Action</a>
+                                  <a class="dropdown-item" href="#">Another action</a>
+                                  <a class="dropdown-item" href="#">Something else here</a>
+                                </div>
+                              </div>
+                            </div> -->
+                        <td>
+                            <div class="form-group mb-2">
+                                <button type="button" class="btn btn-secondary onClickDelete" id="onClickDelete">Delete Row</button>
+                              </div>
+                        </td>
+                    </tr>
+
+                </tbody>
+            </table>
+
+            <div class="container">
+
+            </div>
+        </div>
+        
+    </form>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+        integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+        integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+        crossorigin="anonymous"></script>
+
+    <script type="text/javascript">
+    var content = []
+ $( document ).ready(function() {
+       var content = [
+           {
+           "Id":"id1",
+           "Name":"name1",
+           "Employeer":"employeer1",
+           "Experience":"experience1"
+       },
+       {
+           "Id":"id2",
+           "Name":"name2",
+           "Employeer":"employeer2",
+           "Experience":"experience2"
+       },
+    ]
+
+    localStorage.setItem("savedValue1",JSON.stringify(content));
+
+    var storageData = localStorage.getItem("savedValue2");
+    if(storageData){
+        content = JSON.parse(storageData);
+    }
+    
+
+       if(storageData.length >0){
+        $('#genericTable tbody tr:first').remove();
+        content.forEach(item => {
+            addnewRow(true, item);
+
+        });
+       }
+ });
+        $(".dblclickTrigger").dblclick(function (event) {
+            event.preventDefault();
+            $(this).removeAttr("readonly")
+        });
+
+        $(".dblclickTrigger").focusout(function (event) {
+            event.preventDefault();
+            $(this).attr('readonly', true);
+        });
+
+        $(".dblclickButton").dblclick(function (event) {
+            event.preventDefault();
+            $(this).removeAttr("disabled")
+        });
+
+        $(".dblclickButton").focusout(function (event) {
+            event.preventDefault();
+            $(this).attr('disabled', true);
+        });
+
+        $(".onClickDelete").click(function(event){
+            $(this).closest("tr").remove();   // you need to add #
+     });
+
+        function addnewRow(isValueUpdate=false, content) {
+            var table = $("#genericTable");
+            var rowToBeCloned = table.find("#rowToAdd").clone(true);
+            rowToBeCloned.removeAttr("hidden");
+            var rowNum = "_" + ($("#genericTable tbody tr").length - 1);
+            rowToBeCloned.attr('id', "id_" + rowNum);
+            $("#genericTable").append(rowToBeCloned);
+            rowToBeCloned.find("input").each(function () {
+                var ctrl = $(this).attr("id");
+                console.log(ctrl);
+                var newId = ctrl + rowNum;
+                $(this).attr("id", newId);
+                if(isValueUpdate){
+                    $(this).val(content[ctrl]);
+                }
+            });
+
+            rowToBeCloned.find("button").each(function () {
+                var ctrl = $(this).attr("id");
+                var newId = ctrl + rowNum;
+                $(this).attr("id", newId);
+            });
+        }
+
+
+        function DeleteRow(row)
+{
+    var i=row.parentNode.parentNode.rowIndex;
+    document.getElementById('genericTable').deleteRow(i);
+}
+        function submitme() {
+            var tbl = document.getElementById("lineItemTable");
+            var jsonArray = [];
+            for (var i = 1, r = tbl.rows.length - 1; i < r; i++) {
+                var jsonObj = {
+                    InvoiceNumber: $("#InvoiceNumber_" + i).val(),
+                    Id: $("#Id_" + i).val()
+                };
+
+                jsonArray.push(jsonObj);
+            }
+
+            console.log(jsonArray);
+            console.log(JSON.stringify(jsonArray));
+
+            var massagedRawMaterials = [];
+
+            for (var i = 0; i < 5; i++) {
+                massagedRawMaterials.push({
+                    name: 'Raw Material Name',
+                    shortCode: 'Short Code',
+                    price: 'Price'
+                });
+            }
+
+            //pass json array to controller function to save line items
+            //$.ajax({
+            //    url: "/Home/Create",
+            //    type: "POST",
+            //    data: JSON.stringify({ rawmaterial: massagedRawMaterials }),
+            //    contentType: "application/json",
+            //    dataType: 'json',
+            //    success: function (savingStatus) {
+            //        $("#hdnOrigComments").val($('#txtComments').val());
+            //        $('#lblCommentsNotification').text(savingStatus);
+            //    },
+            //    error: function (xhr, ajaxOptions, thrownError) {
+            //        $('#lblCommentsNotification').text("Error encountered while saving the comments.");
+            //    }
+            $.ajax({
+                url: "/Home/Create",
+                type: "POST",
+                data: { rawmaterial: massagedRawMaterials },
+                success: function (savingStatus) {
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                }
+                //async: false,
+                //type: "POST",
+                ////dataType: "json",
+                //contentType: "application/json; charset=utf-8'",
+                //data:{ "InvoiceNumber": "12", "Id": "2" },
+                //success: function () {
+                //    showModal("btn-success", "Form Saved", "Your new transfer form was successfully saved.");
+                //},
+                //failure: function () {
+                //    showModal("btn-danger", "Save Failed", "Your form could not be saved, please contact site support");
+                //}
+            });
+        }
+    </script>
+
+</body>
+
+</html>
